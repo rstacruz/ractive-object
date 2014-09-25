@@ -1,9 +1,9 @@
-require('mocha-clean')();
 var expect = require('chai').expect;
 
 var RModel, Ractive, User, Sub, name;
 
 describe('RModel', function () {
+  console.log(before);
   before(function () {
     RModel = require('../index');
     Ractive = require('ractive');
