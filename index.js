@@ -10,50 +10,19 @@
 
 }(this, function (Ractive) {
 
-  var Parent = Ractive.extend();
-
-  /*
-   * RModel
-   */
-
-  function Rmodel (data) {
-    Parent.call(this, { data: data });
-  }
-
-  Rmodel.prototype = objectCreate(Parent.prototype);
-  console.log(Parent.prototype);
-
-  // Inherit registries like adaptors and so on
-  each(Parent, function (val, key) {
-    Rmodel[key] = {};
-  });
-
-  /*
-   * Extends model
-   */
-
-  Rmodel.extend = function (props) {
-    var parent = this;
-
-    function subclass (data) {
-      parent.apply(this, arguments);
+  var Rmodel = Ractive.extend({
+    // monkeyfix to mutate `options` into `options.data`
+    beforeInit: function (options) {
+      if (options) {
+        var data = {};
+        each(options, function (val, key) {
+          data[key] = val;
+          delete options[key];
+        });
+        options.data = data;
+      }
     }
-
-    subclass.prototype = objectCreate(parent.prototype);
-    subclass.prototype.constructor = parent;
-
-    // propagate static methods
-    each(parent, function (val, key) {
-      subclass[key] = val;
-    });
-
-    // propagate instance methods
-    each(props, function (val, key) {
-      subclass.prototype[key] = val;
-    });
-
-    return subclass;
-  };
+  });
 
   return Rmodel;
 
@@ -66,16 +35,6 @@
     for (var key in obj) {
       if (obj.hasOwnProperty(key)) fn(obj[key], key);
     }
-  }
-
-  /*
-   * Object.create() polyfill
-   */
-
-  function objectCreate (proto) {
-    var surrogate = function () {};
-    surrogate.prototype = proto;
-    return new surrogate();
   }
 
 }));

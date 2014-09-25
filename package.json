@@ -11,6 +11,7 @@
   "devDependencies": {
     "chai": "^1.9.1",
     "mocha": "^1.21.4",
+    "mocha-clean": "0.0.1",
     "ractive": "^0.5.8"
   }
 }

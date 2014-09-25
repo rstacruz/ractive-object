@@ -1,3 +1,4 @@
+require('mocha-clean')();
 var expect = require('chai').expect;
 
 var RModel, Ractive, User, Sub, name;
@@ -23,26 +24,19 @@ describe('RModel', function () {
     expect(name.get('first')).eql('JS');
   });
 
-  it('is extendable', c(function () {
+  it('is extendable', function () {
     User = RModel.extend();
     name = new User({ first: 'JS', last: 'Bach' });
 
     expect(name.get('first')).eql('JS');
-  }));
-
-  it('carries static methods in subclasses', function () {
-    User = RModel.extend();
-    User.static = 2;
-
-    Sub = User.extend();
-
-    expect(Sub.static).eql(2);
   });
 
   it('has ractives static stuff', function () {
     User = RModel.extend();
-    console.log(Object.keys(User));
-    console.log(Object.keys(Ractive.extend()));
+    var keys = Object.keys(User);
+    var original = Object.keys(Ractive.extend());
+
+    expect(original).eql(keys);
   });
 
   it('supports computed props', function () {
@@ -65,26 +59,3 @@ describe('RModel', function () {
     expect(name.woop).eql(true);
   });
 });
-
-function c(fn) {
-  return function () {
-    try {
-      fn();
-    } catch (e) {
-      var cwd = process.cwd() + '/';
-      var stack = e.stack.split('\n');
-
-      stack = stack.reduce(function (list, line) {
-        if (~line.indexOf('node_modules/mocha'))
-          return list;
-
-        line = line.replace(cwd, '');
-        list.push(line);
-        return list;
-      }, []);
-
-      e.stack = stack.join('\n');
-      throw e;
-    }
-  };
-}
