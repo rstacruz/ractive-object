@@ -4,12 +4,12 @@ var expect = require('chai').expect;
 
 var RObject, Ractive, User, Sub, name;
 
-describe('RObject', function () {
-  before(function () {
-    RObject = require('../index');
-    Ractive = require('ractive');
-  });
+before(function () {
+  RObject = require('../index');
+  Ractive = require('ractive');
+});
 
+describe('RObject', function () {
   it('exports', function () {
     expect(RObject).be.a('function');
   });
@@ -61,11 +61,24 @@ describe('RObject', function () {
 
     expect(name.woop).eql(true);
   });
+});
+
+describe('Robject with nested cases', function () {
+  var A, B, C;
+
+  beforeEach(function () {
+    A = RObject.extend();
+    B = A.extend();
+    C = B.extend();
+  });
 
   it('supports extend all the way', function () {
-    var A = RObject.extend();
-    var B = A.extend();
-
     expect(B.create).be.a('function');
+    expect(C.create).be.a('function');
+  });
+
+  it('accounts for instanceOf', function () {
+    expect(B.create()).instanceOf(A);
+    expect(C.create()).instanceOf(A);
   });
 });

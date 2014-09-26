@@ -11,8 +11,8 @@ that.
 
 ## API
 
-`RObject` is simply a subclass of *Ractive*. They support everything Ractive can
-(eg: events, observers, computed properties) except templates.
+`RObject` is simply a subclass of *Ractive*. That means it supports everything
+Ractive does (eg: events, observers, computed properties).
 
 ```js
 User = RObject.extend({
@@ -26,7 +26,7 @@ User = RObject.extend({
 
 <br>
 
-#### Instanciating
+### Instanciating
 For convenience, it implements `RObject.create(data)` as a way to make an
 instance with *data* as the data.
 
@@ -42,7 +42,7 @@ u.get('full')  => "Ned Stark"
 
 <br>
 
-#### Singletons
+### Singletons
 There's no need to subclass `RObject`.
 
 ```js
@@ -55,13 +55,14 @@ App.settings = RObject.create({
 
 <br>
 
-#### Use it with [ractive-ractive]
+### Use it with [ractive-ractive]
 With the ractive adaptor, you can better seperate your application logic.
 
 ```js
-var api = 
+/*
+ * Model
+ */
 
-// model
 Weather = RObject.extend({
   api: "http://api.openweathermap.org/data/2.5/weather?q=%{city}",
 
@@ -71,8 +72,12 @@ Weather = RObject.extend({
   }
 });
 
-// view
+/*
+ * View
+ */
+
 WeatherView = Ractive.extend({
+  template: /*...*/,
   data: {
     weather: Weather.create({ city: "London,uk" })
     settings: App.settings
@@ -81,3 +86,14 @@ WeatherView = Ractive.extend({
 ```
 
 [ractive-ractive]: https://github.com/rstacruz/ractive-ractive
+
+<br>
+
+## So it's just sugar?
+Yes: RObject is simply syntactic sugar over Ractive to allow you to use
+`RObject.create({ name: 'Kay' })` instead of `new Ractive({ data: { name: 'Kay'
+}})`.
+
+Apart from this convenience, it allows for more readable code by making a
+differenciation between data classes (`RObject.extend`) and view classes
+(`Ractive.extend`).
