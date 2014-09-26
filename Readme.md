@@ -28,7 +28,7 @@ User = RObject.extend({
 
 ### Instanciating
 For convenience, it implements `RObject.create(data)` as a way to make an
-instance with *data* as the data.
+instance with `data` as the data.
 
 ```js
 u = User.create({ first: "Jon", last: "Snow" });
@@ -36,7 +36,7 @@ u = User.create({ first: "Jon", last: "Snow" });
 u.get('first') => "Jon"
 u.get('last')  => "Snow"
 
-u.set({ first: 'Ned', last: 'Stark' }
+u.set({ first: 'Ned', last: 'Stark' });
 u.get('full')  => "Ned Stark"
 ```
 
