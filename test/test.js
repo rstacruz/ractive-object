@@ -2,38 +2,38 @@
 
 var expect = require('chai').expect;
 
-var RModel, Ractive, User, Sub, name;
+var RObject, Ractive, User, Sub, name;
 
-describe('RModel', function () {
+describe('RObject', function () {
   before(function () {
-    RModel = require('../index');
+    RObject = require('../index');
     Ractive = require('ractive');
   });
 
   it('exports', function () {
-    expect(RModel).be.a('function');
+    expect(RObject).be.a('function');
   });
 
   it('works with instanceof', function () {
-    expect(new RModel()).instanceOf(RModel);
+    expect(new RObject()).instanceOf(RObject);
   });
 
   it('works', function () {
-    name = RModel.create({ first: 'JS', last: 'Bach' });
-    expect(name).instanceOf(RModel);
+    name = RObject.create({ first: 'JS', last: 'Bach' });
+    expect(name).instanceOf(RObject);
 
     expect(name.get('first')).eql('JS');
   });
 
   it('is extendable', function () {
-    User = RModel.extend();
+    User = RObject.extend();
     name = User.create({ first: 'JS', last: 'Bach' });
 
     expect(name.get('first')).eql('JS');
   });
 
   it('has ractives static stuff', function () {
-    User = RModel.extend();
+    User = RObject.extend();
     var keys = Object.keys(User);
     var original = Object.keys(Ractive.extend());
 
@@ -43,7 +43,7 @@ describe('RModel', function () {
   });
 
   it('supports computed props', function () {
-    User = RModel.extend({
+    User = RObject.extend({
       computed: {
         full: function () {
           return this.get('first') + ' ' + this.get('last');
@@ -56,7 +56,7 @@ describe('RModel', function () {
   });
 
   it('carries prototype in extensions', function () {
-    User = RModel.extend({ woop: true });
+    User = RObject.extend({ woop: true });
     name = User.create();
 
     expect(name.woop).eql(true);

@@ -1,4 +1,4 @@
-# ractive-model
+# ractive-object
 
 Models implemented via Ractive.
 
@@ -11,7 +11,7 @@ model library. ractive-model is a wrapper around Ractive that does exactly that.
 u = new Ractive({ data: { first: "Theone", last: "Greyjoy" }});
 
 // the ractive-model way:
-u = RModel.create({ first: "Theone", last: "Greyjoy" });
+u = RObject.create({ first: "Theone", last: "Greyjoy" });
 
 u.get('first') => "Theone"
 u.get('last')  => "Greyjoy"
@@ -26,7 +26,7 @@ except templates.
  - Events
 
 ```js
-User = RModel.extend({
+User = RObject.extend({
   computed: {
     full: function () {
       return [ this.get('first'), this.get('last') ].join(' ');
