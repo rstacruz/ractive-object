@@ -10,7 +10,21 @@
 
 }(this, function (Ractive) {
 
-  var RObject = Ractive.extend();
+  /*
+   * Subclass RActive with template-related things disabled.
+   */
+
+  var RObject = Ractive.extend({
+    find: void 0,
+    findAll: void 0,
+    findComponents: void 0,
+    findAllComponents: void 0,
+    render: void 0,
+    beforeInit: function (options) {
+      if (options && options.template)
+        throw new Error("RObject: template not allowed");
+    }
+  });
 
   /*
    * instanciate

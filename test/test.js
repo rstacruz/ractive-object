@@ -61,6 +61,16 @@ describe('RObject', function () {
 
     expect(name.woop).eql(true);
   });
+
+  it('disables template-related functions', function () {
+    expect(RObject.create().find).be.undefined;
+  });
+
+  it('disables templates', function () {
+    expect(function () {
+      new RObject({ template: 'x' });
+    }).to.throw;
+  });
 });
 
 describe('Robject with nested cases', function () {

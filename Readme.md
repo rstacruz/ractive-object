@@ -24,6 +24,20 @@ User = RObject.extend({
 });
 ```
 
+Ractive supports:
+
+* Properties ([.get()], [.set()])
+* Events ([.on()], [.off()], [.fire()])
+* Property observing ([.observe()])
+* [Computed properties](http://docs.ractivejs.org/latest/computed-properties)
+
+[.on()]: http://docs.ractivejs.org/latest/ractive-on
+[.off()]: http://docs.ractivejs.org/latest/ractive-off
+[.get()]: http://docs.ractivejs.org/latest/ractive-get
+[.set()]: http://docs.ractivejs.org/latest/ractive-set
+[.fire()]: http://docs.ractivejs.org/latest/ractive-fire
+[.observe()]: http://docs.ractivejs.org/latest/ractive-observe
+
 <br>
 
 ### Instanciating
