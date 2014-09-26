@@ -25,15 +25,4 @@
 
   return RObject;
 
-  /*
-   * forEach polyfill
-   */
-
-  function each (obj, fn) {
-    if (!obj) return;
-    for (var key in obj) {
-      if (obj.hasOwnProperty(key)) fn(obj[key], key);
-    }
-  }
-
 }));
