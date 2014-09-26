@@ -97,3 +97,13 @@ Yes: RObject is simply syntactic sugar over Ractive to allow you to use
 Apart from this convenience, it allows for more readable code by making a
 differenciation between data classes (`RObject.extend`) and view classes
 (`Ractive.extend`).
+
+<br>
+
+## To do
+
+- Collections support is planned to be implemented at some point. This would
+make it a full-fledged model system.
+
+- Once Ractive supports mixins, this would be a great way to offer mixins for
+validation, persistence, AJAX, and other things you'd expect from a model library.
