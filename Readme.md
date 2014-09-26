@@ -11,7 +11,7 @@ model library. ractive-model is a wrapper around Ractive that does exactly that.
 u = new Ractive({ data: { first: "Theone", last: "Greyjoy" }});
 
 // the ractive-model way:
-u = new RModel({ first: "Theone", last: "Greyjoy" });
+u = RModel.create({ first: "Theone", last: "Greyjoy" });
 
 u.get('first') => "Theone"
 u.get('last')  => "Greyjoy"
@@ -41,57 +41,4 @@ u.get('first') => "Jon"
 u.get('last')  => "Stewart"
 u.get('full')  => "Jon Stewart"
 ```
-
-## Extensions
-
-ractive-model supports extensions, some of which are bundled in.
-
- - Persistence (`.save()` and such)
- - Case normalization (eg, `firstName` vs `first_name`)
- - Collections
- - Validation
- - Caching
-
-```js
-User = RModel.extend({ ... });
-User.include(RModel.extensions.validation);
-User.include(RModel.extensions.persistence);
-
-/* or */
-
-User = RModel.extend({
-  include: ['validation', 'persistence']
-});
-```
-
-## Collections
-
-```js
-Users = RModel.Collection.extend({
-  model: User
-});
-
-admins = new Users();
-
-admins.push(user);
-admins.at(0);
-```
-
-Use them in templates:
-
-```js
-UserView = Ractive.extend({
-  template:
-    "{{#users}}" +
-    "  {{#items}}" +
-    "     <li>{{first}} {{last}}</li>" +
-    "  {{/items}}" +
-    "{{/users}}"
-});
-
-view = new UserView();
-view.set('users', admins);
-```
-
-## Extensions
 

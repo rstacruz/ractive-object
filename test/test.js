@@ -1,3 +1,5 @@
+/* jshint expr: true */
+
 var expect = require('chai').expect;
 
 var RModel, Ractive, User, Sub, name;
@@ -17,7 +19,7 @@ describe('RModel', function () {
   });
 
   it('works', function () {
-    name = new RModel({ first: 'JS', last: 'Bach' });
+    name = RModel.create({ first: 'JS', last: 'Bach' });
     expect(name).instanceOf(RModel);
 
     expect(name.get('first')).eql('JS');
@@ -25,7 +27,7 @@ describe('RModel', function () {
 
   it('is extendable', function () {
     User = RModel.extend();
-    name = new User({ first: 'JS', last: 'Bach' });
+    name = User.create({ first: 'JS', last: 'Bach' });
 
     expect(name.get('first')).eql('JS');
   });
@@ -35,7 +37,9 @@ describe('RModel', function () {
     var keys = Object.keys(User);
     var original = Object.keys(Ractive.extend());
 
-    expect(original).eql(keys);
+    original.forEach(function (key) {
+      expect(key in User).be.true;
+    });
   });
 
   it('supports computed props', function () {
@@ -47,13 +51,13 @@ describe('RModel', function () {
       }
     });
 
-    name = new User({ first: 'JS', last: 'Bach' });
+    name = User.create({ first: 'JS', last: 'Bach' });
     expect(name.get('full')).eql('JS Bach');
   });
 
   it('carries prototype in extensions', function () {
     User = RModel.extend({ woop: true });
-    name = new User();
+    name = User.create();
 
     expect(name.woop).eql(true);
   });

@@ -10,19 +10,18 @@
 
 }(this, function (Ractive) {
 
-  var Rmodel = Ractive.extend({
-    // monkeyfix to mutate `options` into `options.data`
-    beforeInit: function (options) {
-      if (options) {
-        var data = {};
-        each(options, function (val, key) {
-          data[key] = val;
-          delete options[key];
-        });
-        options.data = data;
-      }
-    }
-  });
+  var Rmodel = Ractive.extend();
+
+  Rmodel.create = function (data) {
+    return new this({ data: data });
+  };
+
+  Rmodel.extend = function () {
+    var parent = this.__parent || Ractive;
+    var result = parent.extend.apply(this, arguments);
+    result.create = Rmodel.create;
+    return result;
+  };
 
   return Rmodel;
 
