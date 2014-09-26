@@ -61,4 +61,11 @@ describe('RObject', function () {
 
     expect(name.woop).eql(true);
   });
+
+  it('supports extend all the way', function () {
+    var A = RObject.extend();
+    var B = A.extend();
+
+    expect(B.create).be.a('function');
+  });
 });
