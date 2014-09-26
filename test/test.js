@@ -63,7 +63,7 @@ describe('RObject', function () {
   });
 
   it('disables template-related functions', function () {
-    expect(RObject.create().find).be.undefined;
+    expect(RObject.create().find.noop).true;
   });
 
   it('disables templates', function () {

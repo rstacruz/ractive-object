@@ -15,11 +15,12 @@
    */
 
   var RObject = Ractive.extend({
-    find: void 0,
-    findAll: void 0,
-    findComponents: void 0,
-    findAllComponents: void 0,
-    render: void 0,
+    find: noop,
+    findAll: noop,
+    findComponents: noop,
+    findAllComponents: noop,
+    render: noop,
+    detach: noop,
     beforeInit: function (options) {
       if (options && options.template)
         throw new Error("RObject: template not allowed");
@@ -49,6 +50,13 @@
 
     return result;
   };
+
+  /*
+   * noop ("no operation")
+   */
+
+  function noop () {}
+  noop.noop = true;
 
   return RObject;
 
